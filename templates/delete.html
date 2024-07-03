@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <h2>are you sure ?</h2>
+    <p>delete book {{ books.title }}</p>
+    <form action="" method="post">
+        {% csrf_token %}
+    <input type="submit" value="confirm delete">
+
+
+    </form>
+    
+{% endblock %}

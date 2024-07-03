@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% if not cart_items %}
+    <p>your cart is empty</p>
+
+    {% else %}
+
+    <table>
+        <thead>
+          <tr>
+           
+            <th scope="col">book name</th>
+            <th scope="col">auther</th>
+            <th scope="col">price</th>
+            <th scope="col">image</th><br>
+            <th scope="col">action</th><br>
+          </tr>
+        </thead>
+        <tbody>
+            {% endif %}
+            {% for item in cart_items %}
+          <tr>
+            
+            <td>{{ item.book.title }}</td>
+            <td>{{ item.book.auther }}</td>
+            <td>{{ item.book.price }}</td>
+            <td><img src="{{item.book.image.url }}" style="width: 70px;" height="70px"></td>
+            <td><a href="{% url 'remove_cart' item.id %}"> remove </a>
+            {% if item.quantity <= item.book.quantity %}
+            <td><a href="{% url 'decrease_quantity' item.id %}"> - </a></td>
+            <td><input type="number" name="quantity" value="{{ item.quantity }}">quantity</td>
+            <td><a href="{% url 'increase_quantity' item.id %}"> + </a></td>
+            {% endif %}
+
+          </tr>
+        
+        {% endfor %}
+        </tbody>
+      </table>
+      <form action="{% url 'checkout' %}" method="post">
+        {% csrf_token %}
+      <div class="card" style="width: 300px;">
+        <div class="card-body">
+          <h5 class="card-title">total products : {{ total_items }}</h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">total price : {{ total_price }}</h6>
+
+          <button id="checkout-button" type="submit" class ="card-link">check out</button>
+        </div>
+
+      </div>
+      </div>
+      </form>
+      
+      
+
+     
+      
+
+    
+
+    
+
+    
+</body>
+</html>
